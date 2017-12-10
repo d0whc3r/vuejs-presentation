@@ -46,7 +46,7 @@ class: impact
 # Basics - Properties and Methods
 
 - `data`: Object with stored properties that become reactive
-- `computed`: Object with computed properties (es6 getters/setters)
+- `computed`: Object with computed properties and use like data properties
 - `methods`: Object with stored functions to use
 
 > All properties and methods could be used in component/instance or in its html template
@@ -308,6 +308,11 @@ computed: {
 vm.fullName = 'John Doe'
 ```
 ]
+
+---
+
+
+
 ---
 ...
 
