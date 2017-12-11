@@ -159,7 +159,7 @@ Each binding can only contain **one single expression**, so the following will *
 - Some vue directives
 
 ```
-v-for, v-if, v-else-if, v-else, v-show, v-text, v-bind, v-on...
+v-for, v-model, v-if, v-else-if, v-else, v-show, v-text, v-bind, v-on...
 ```
 
 - Can create custom directives
@@ -320,8 +320,378 @@ Components are one of the most powerful features of Vue. They help you extend ba
 - Components are reusable
 - Components could be global or local
 
+---
+
+# Components - Global
+
+This is an example code of global component
+
+![large](./images/globalcomponent1.png)
 
 ---
+
+# Components - Global
+
+This is an example code of global component
+
+![large](./images/globalcomponent2.png)
+
+---
+
+# Components - Local
+
+This is an example code of local component.
+
+`Child` var could also be included using `import` or `require`
+
+![large](./images/localcomponent1.png)
+
+---
+
+# Components - Local
+
+This is an example code of local component.
+
+`Child` var could also be included using `import` or `require`
+
+![large](./images/localcomponent2.png)
+
+---
+
+# Components - Passing Data with Props
+
+- VueJS uses one way data flow, from parent to child
+- `Parent` passes data to child and `Child` receives it as a prop
+- If `Parent` changes data, prop changes in `Child`
+- Component **should not** directly alter its own props
+> A child component needs to explicitly declare the props it expects to receive using the props option
+
+
+---
+
+# Components - Props example
+
+Using the last example:
+
+![large](./images/componentprops1.png)
+
+---
+
+# Components - Props example
+
+Using the last example:
+
+![large](./images/componentprops2.png)
+
+---
+
+# Components - Props validation
+
+.text-small[
+
+``` javascript
+...
+  props: {
+    propA: Number, //`null` means accept any type
+    propB: [String, Number],
+    propC: {
+      type: String,
+      required: true,
+      default: 'some Text'
+    },
+    propE: {
+      type: Object,
+      default: function () { return { message: 'hello' } }
+    },
+    propF: {
+      validator: (value) => value > 10
+    }
+  }
+...
+```
+]
+
+---
+
+# Components - Parent-Child
+
+- Parent use a child component and pass props to it (`v-bind`)
+- Child captures the prop and `$emit` an event (`v-on`)
+
+![big](./images/componentemit1.png)
+
+---
+
+# Components - Parent-Child
+
+- Parent use a child component and pass props to it (`v-bind`)
+- Child captures the prop and `$emit` an event (`v-on`)
+
+![big](./images/componentemit2.png)
+
+---
+
+# Components - v-model binding
+
+``` html
+<!-- `picked` is a string "a" when checked -->
+<input type="radio" v-model="picked" value="a">
+
+<!-- `toggle` is either true or false -->
+<input type="checkbox" v-model="toggle">
+
+<!-- `selected` is a string "abc" when selected -->
+<select v-model="selected">
+  <option value="abc">ABC</option>
+</select>
+```
+
+``` html
+<custom-input v-model="price"></custom-input>
+```
+
+- In child component props `value` must be defined and emit event must be `input`
+
+---
+
+# Components - Slots
+
+## Single slot
+
+.col-6[
+
+Suppose we have a component called `my-component` with the following template:
+
+``` html
+<div>
+  <h2>I'm the child title</h2>
+  <slot>
+    Some text on empty slot.
+  </slot>
+</div>
+```
+]
+
+.col-6[
+
+And a parent that uses the component:
+
+``` html
+<div>
+  <h1>I'm the parent title</h1>
+  <my-component>
+    <p>Content1</p>
+    <p>Content2</p>
+  </my-component>
+</div>
+```
+]
+
+---
+
+# Components - Slots
+
+## Single slot
+
+The rendered result will be:
+
+``` html
+<div>
+  <h1>I'm the parent title</h1>
+  <div>
+    <h2>I'm the child title</h2>
+    <p>Content1</p>
+    <p>Content2</p>
+  </div>
+</div>
+```
+
+---
+
+# Components - Slots
+
+## Named slot
+
+.col-6[
+Using the example before we could define a component like:
+
+``` html
+<div>
+  <header>
+    <slot name="title"></slot>
+  </header>
+  <slot></slot>
+  <footer>
+    <slot name="footer"></slot>
+  <footer>
+</div>
+```
+]
+
+.col-6[
+
+And a parent that uses the component:
+
+``` html
+<div>
+  <h1>I'm the parent title</h1>
+  <my-component>
+    <p>Content1</p>
+    <p>Content2</p>
+    <h3 slot="title">The header</h3>
+    <span slot="footer">
+      footer
+    </span>
+  </my-component>
+</div>
+```
+]
+---
+
+# Components - Slots
+
+## Named slot
+
+The rendered result will be:
+
+``` html
+<div>
+  <h1>I'm the parent title</h1>
+  <div>
+    <header><h3>The header</h3></header>
+    <p>Content1</p>
+    <p>Content2</p>
+    <footer>
+      <span>footer</span>
+    </footer>
+  </div>
+</div>
+```
+
+---
+
+# Components - Register names
+
+When registering components (or props), you can use kebab-case, camelCase, or PascalCase.
+
+``` javascript
+components: {
+  'kebab-cased-component': { /* ... */ },
+  camelCasedComponent: { /* ... */ },
+  PascalCasedComponent: { /* ... */ }
+}
+```
+
+Within HTML templates though, you have to use the kebab-case equivalents:
+
+``` html
+<kebab-cased-component></kebab-cased-component>
+<camel-cased-component></camel-cased-component>
+<pascal-cased-component></pascal-cased-component>
+```
+
+---
+
+# Filters
+
+Vue does not include filters in core but you could define a new one like:
+
+``` javascript
+new Vue({
+  // ...
+  filters: {
+    filterName: function (value) {
+      // ...
+      return valueMod;
+    },
+  },
+});
+```
+
+Filters could be chained
+
+``` html
+{{ message | filterName | filterA | filterB }}
+```
+
+---
+
+# Vue router
+
+Routers in vue are included in a separated package that could be installed in projects like:
+
+``` bash
+npm install vue-router
+```
+
+And included in main app with `Vue.use()` function:
+
+``` javascript
+var Vue = require('vue');
+var VueRouter = require('vue-router');
+
+Vue.use(VueRouter);
+```
+
+---
+
+# Vue router
+
+Usage of vue router is separated in html tags and router definition object.
+
+``` html
+<div id="app">
+  <h1>Hello App!</h1>
+  <p>
+    <router-link to="/foo">Go to Foo</router-link>
+    <router-link to="/bar">Go to Bar</router-link>
+  </p>
+
+  <router-view></router-view>
+</div>
+```
+
+- `router-link` will be rendered as an `<a>` tag by default (could be personalized) and it is used to navigate in application
+- `router-view` is used to render matching component route
+
+---
+
+# Vue router definition
+
+- Initialize components to render
+``` javascript
+const Foo = { template: '<div>foo {{ $route.params.id }}</div>' }
+const Bar = { template: '<div>bar</div>' }
+```
+- Create `VueRouter` object with components for each route
+``` javascript
+const router = new VueRouter({
+  routes: [
+    { path: '/foo/:id', component: Foo },
+    { path: '/bar', component: Bar }
+  ]
+})
+```
+---
+
+# Vue router definition
+
+- Integrate router into vue instance
+``` javascript
+new Vue({
+  el: '#app',
+  router // short for router: router
+})
+```
+
+Inside component, it is called like `this.$route` and `this.$router`; examples:
+
+- `this.$route.params.id`
+- `this.$router.go(-1)`
+- `this.$router.push('/bar')`
+
+---
+
 ...
 
 
