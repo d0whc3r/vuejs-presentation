@@ -1,4 +1,4 @@
-title: VueJS presentation
+title: VueJS
 class: animation-fade
 layout: true
 
@@ -12,7 +12,7 @@ layout: true
 class: impact
 
 # {{title}}
-## VueJS, Javascript framework
+## Javascript framework
 
 ---
 
@@ -59,7 +59,7 @@ Vue proxies all properties in *data*, *computed*, and *methods* to __root__ obje
 
 - An application is started with one Vue Instance
 
-![](./images/simple-instance1.png)
+![large](./images/simple-instance1.png)
 
 ---
 
@@ -67,7 +67,7 @@ Vue proxies all properties in *data*, *computed*, and *methods* to __root__ obje
 
 - An application is started with one Vue Instance
 
-![](./images/simple-instance2.png)
+![large](./images/simple-instance2.png)
 
 ---
 
@@ -311,6 +311,14 @@ vm.fullName = 'John Doe'
 
 ---
 
+# Components
+
+Components are one of the most powerful features of Vue. They help you extend basic HTML elements to encapsulate reusable code
+
+- Components live inside a `Vue Instance`
+- Registered with and `id` that will be the tag in DOM for the component
+- Components are reusable
+- Components could be global or local
 
 
 ---
