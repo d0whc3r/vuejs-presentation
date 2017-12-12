@@ -700,6 +700,14 @@ Inside component, it is called like `this.$route` and `this.$router`; examples:
 
 ---
 
-# Sample code
+# Documentation
 
-Sample project code in: [https://glitch.com/edit/#!/vuejs-sample](https://glitch.com/edit/#!/vuejs-sample)
+- Vuejs official guide: [https://vuejs.org/v2/guide/](https://vuejs.org/v2/guide/)
+- Vue-router: [https://router.vuejs.org/](https://router.vuejs.org/)
+- Sample project code: [https://glitch.com/edit/#!/vuejs-sample](https://glitch.com/edit/#!/vuejs-sample)
+
+---
+
+class: center
+
+# End
