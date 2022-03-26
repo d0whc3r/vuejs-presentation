@@ -10,7 +10,7 @@
     "deploy": "npm run build && npm run gpage"
   },
   "devDependencies": {
-    "backslide": "2.3.0",
+    "backslide": "3.1.0",
     "gh-pages": "2.0.1"
   }
 }
